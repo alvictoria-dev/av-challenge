@@ -14,3 +14,4 @@ releases:
   - name: nginxdemo
     chart: ./charts/nginxdemo
     namespace: "{{ .Environment.Namespace }}"
+    createNamespace: true
