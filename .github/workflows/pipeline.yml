@@ -15,6 +15,12 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set up Helm and Helmfile
+      run: |
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+        curl -LO https://github.com/roboll/helmfile/releases/latest/download/helmfile_linux_amd64
+        chmod +x helmfile_linux_amd64 && mv helmfile_linux_amd64 /usr/local/bin/helmfile
+
     - name: Deploy using helmfile
       run: |
         helmfile -e ${{ matrix.env }} apply
