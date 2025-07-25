@@ -8,12 +8,12 @@ on:
 jobs:
   deployDemo:
     runs-on: self-hosted
-    
+
     steps:
     - uses: actions/checkout@v4
 
     - name: Set up Helm and Helmfile
-      shell: pwsh
+      shell: powershell
       run: |
         Invoke-WebRequest -Uri https://get.helm.sh/helm-v3.12.3-windows-amd64.zip -OutFile helm.zip
         Expand-Archive .\helm.zip -DestinationPath .
@@ -21,9 +21,9 @@ jobs:
         Invoke-WebRequest -Uri https://github.com/roboll/helmfile/releases/latest/download/helmfile_windows_amd64.exe -OutFile helmfile.exe
 
     - name: Deploy to dev
-      shell: pwsh
+      shell: powershell
       run: .\helmfile.exe -e dev apply
   
     - name: Deploy to stage
-      shell: pwsh
+      shell: powershell
       run: .\helmfile.exe -e stage apply
