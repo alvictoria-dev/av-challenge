@@ -17,7 +17,7 @@ jobs:
 
     - name: Show content of repo
       run: |
-        ls -l
+        Get-ChildItem -Force
 
     - name: Get nodes of minikube
       run: |
