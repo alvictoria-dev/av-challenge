@@ -1,0 +1,16 @@
+environments:
+  dev:
+    values:
+      - values/dev.yaml
+      - secrets/dev-secret.yml
+    namespace: dev
+  stage:
+    values:
+      - values/stage.yaml
+      - secrets/stage-secret.yml
+    namespace: stage
+
+releases:
+  - name: nginxdemo
+    chart: ./charts/nginxdemo
+    namespace: "{{ .Environment.Namespace }}"

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginxdemo
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: nginxdemo
+  template:
+    metadata:
+      labels:
+        app: nginxdemo
+        environment: {{ .Values.env.ENV_NAME | quote }}
+    spec:
+      containers:
+        - name: nginxdemo
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          ports:
+            - containerPort: 80
+          env:
+            - name: ENV_NAME
+              value: {{ .Values.env.ENV_NAME | quote }}
+            - name: SECRET_VALUE
+              value: {{ .Values.secretValue | quote }}

@@ -1,0 +1,25 @@
+name: Test NginxDemo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    strategy:
+      matrix:
+        env: [dev, stage]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Show content of repo
+      run: |
+        ls -l
+
+    - name: Get nodes of minikube
+      run: |
+        kubectl config current-context
+        kubectl get nodes

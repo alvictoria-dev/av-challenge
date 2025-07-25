@@ -1,0 +1,8 @@
+replicaCount: 1
+
+image:
+  repository: nginxdemos/hello
+  tag: latest
+
+env:
+  ENV_NAME: dev
