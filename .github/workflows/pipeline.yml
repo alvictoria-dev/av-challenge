@@ -8,19 +8,22 @@ on:
 jobs:
   deployDemo:
     runs-on: self-hosted
-    strategy:
-      matrix:
-        env: [dev, stage]
-
+    
     steps:
     - uses: actions/checkout@v4
 
     - name: Set up Helm and Helmfile
+      shell: pwsh
       run: |
-        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-        curl -LO https://github.com/roboll/helmfile/releases/latest/download/helmfile_linux_amd64
-        chmod +x helmfile_linux_amd64 && mv helmfile_linux_amd64 /usr/local/bin/helmfile
+        Invoke-WebRequest -Uri https://get.helm.sh/helm-v3.12.3-windows-amd64.zip -OutFile helm.zip
+        Expand-Archive .\helm.zip -DestinationPath .
+        Move-Item .\windows-amd64\helm.exe .\helm.exe
+        Invoke-WebRequest -Uri https://github.com/roboll/helmfile/releases/latest/download/helmfile_windows_amd64.exe -OutFile helmfile.exe
 
-    - name: Deploy using helmfile
-      run: |
-        helmfile -e ${{ matrix.env }} apply
+    - name: Deploy to dev
+      shell: pwsh
+      run: .\helmfile.exe -e dev apply
+  
+    - name: Deploy to stage
+      shell: pwsh
+      run: .\helmfile.exe -e stage apply
