@@ -17,4 +17,4 @@ jobs:
 
     - name: Deploy using helmfile
       run: |
-        helmfile -e ${{ matrix.env }} secrets apply
+        helmfile -e ${{ matrix.env }} apply
