@@ -1,3 +1,6 @@
+helmDefaults:
+  outputDir: /tmp/helmfile-output
+
 environments:
   dev:
     values:
