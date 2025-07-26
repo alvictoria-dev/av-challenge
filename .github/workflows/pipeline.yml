@@ -33,8 +33,8 @@ jobs:
 
     - name: Deploy to Dev
       run: |
-        helmfile -e dev apply
+        helmfile --debug -e dev apply
 
     - name: Deploy to Stage
       run: |
-        helmfile -e stage apply
+        helmfile --debug -e stage apply
