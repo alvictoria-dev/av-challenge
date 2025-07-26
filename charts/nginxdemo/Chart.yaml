@@ -1,0 +1,5 @@
+apiVersion: v2
+name: nginxdemo
+version: 0.1.0
+description: Helm chart for nginxdemo
+type: application
