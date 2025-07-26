@@ -37,8 +37,8 @@ jobs:
 
     - name: Deploy to Dev
       run: |
-        helmfile -e dev apply --skip-diff
+        helmfile -e dev apply
 
     - name: Deploy to Stage
       run: |
-        helmfile -e stage apply --skip-diff
+        helmfile -e stage apply
