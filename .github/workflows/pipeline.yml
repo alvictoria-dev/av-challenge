@@ -37,8 +37,8 @@ jobs:
 
     - name: Deploy to Dev
       run: |
-        helmfile --debug -e dev apply
+        helmfile -e dev apply
 
     - name: Deploy to Stage
       run: |
-        helmfile --debug -e stage apply
+        helmfile -e stage apply
