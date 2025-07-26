@@ -3,14 +3,10 @@ environments:
     values:
       - values/dev.yaml
       - secrets/dev-secret.yml
-    valuesFromEnv:
-      envNamespace: dev 
   stage:
-    values:
+    values
       - values/stage.yaml
       - secrets/stage-secret.yml
-    valuesFromEnv:
-      envNamespace: stage 
 
 ---
 
