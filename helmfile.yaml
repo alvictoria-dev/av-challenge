@@ -10,6 +10,8 @@ environments:
       - secrets/stage-secret.yml
     namespace: stage
 
+---
+
 releases:
   - name: nginxdemo
     chart: ./charts/nginxdemo
