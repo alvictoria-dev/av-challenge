@@ -7,23 +7,38 @@ on:
 
 jobs:
   deployDemo:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
 
-    - name: Set up Helm and Helmfile
-      shell: powershell
-      run: |
-        Invoke-WebRequest -Uri https://get.helm.sh/helm-v3.12.3-windows-amd64.zip -OutFile helm.zip
-        Expand-Archive .\helm.zip -DestinationPath .
-        Move-Item .\windows-amd64\helm.exe .\helm.exe
-        Invoke-WebRequest -Uri https://github.com/roboll/helmfile/releases/latest/download/helmfile_windows_amd64.exe -OutFile helmfile.exe
+    - name: Set up Azure CLI
+      uses: azure/CLI@v1
+      with:
+        azcliversion: latest
 
-    - name: Deploy to dev
-      shell: powershell
-      run: .\helmfile.exe -e dev apply
-  
-    - name: Deploy to stage
-      shell: powershell
-      run: .\helmfile.exe -e stage apply
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set AKS context
+      run: |
+        az aks get-credentials --resource-group rg-aks-test --name akstest --overwrite-existing
+
+    - name: Install Helm, Helmfile and Helmsecrets
+      run: |
+        sudo apt-get update && sudo apt-get install -y gnupg
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+        curl -L https://github.com/helmfile/helmfile/releases/latest/download/helmfile_linux_amd64 -o helmfile
+        chmod +x helmfile
+        sudo mv helmfile /usr/local/bin/
+        helm plugin install https://github.com/jkroepke/helm-secrets
+
+    - name: Deploy to Dev
+      run: |
+        helmfile -e dev apply
+
+    - name: Deploy to Stage
+      run: |
+        helmfile -e stage apply
