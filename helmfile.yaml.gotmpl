@@ -11,6 +11,8 @@ environments:
 releases:
   - name: nginxdemo
     namespace: "{{ .Values.namespace }}"
-    chart: nginxdemo
-    chartPath: ./charts/nginxdemo
+    chart: ./charts/nginxdemo
     createNamespace: true
+    values:
+      - values/{{ .Environment.Name }}.yml
+      - secrets/{{ .Environment.Name }}-secret.yml
