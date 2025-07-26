@@ -1,11 +1,11 @@
 environments:
   dev:
     values:
-      - values/dev.yaml
+      - values/dev.yml
       - secrets/dev-secret.yml
   stage:
     values:
-      - values/stage.yaml
+      - values/stage.yml
       - secrets/stage-secret.yml
 
 ---
