@@ -25,8 +25,8 @@ jobs:
       run: |
         sudo apt-get update && sudo apt-get install -y gnupg
         curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-        wget -O helmfile https://github.com/helmfile/helmfile/releases/latest/download/helmfile_linux_amd64
-        head -n 10 helmfile
+        curl -L -o helmfile.tar.gz https://github.com/helmfile/helmfile/releases/download/v1.1.3/helmfile_1.1.3_linux_amd64.tar.gz
+        tar -xzf helmfile.tar.gz
         chmod +x helmfile
         sudo mv helmfile /usr/local/bin/
         helm plugin install https://github.com/jkroepke/helm-secrets
