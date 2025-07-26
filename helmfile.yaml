@@ -3,17 +3,19 @@ environments:
     values:
       - values/dev.yaml
       - secrets/dev-secret.yml
-    namespace: dev
+    valuesFromEnv:
+      envNamespace: dev 
   stage:
     values:
       - values/stage.yaml
       - secrets/stage-secret.yml
-    namespace: stage
+    valuesFromEnv:
+      envNamespace: stage 
 
 ---
 
 releases:
   - name: nginxdemo
     chart: ./charts/nginxdemo
-    namespace: "{{ .Environment.Namespace }}"
-    createNamespace: 'true'
+    namespace: "{{ .Environment.Values.envNamespace }}"
+    createNamespace: true
