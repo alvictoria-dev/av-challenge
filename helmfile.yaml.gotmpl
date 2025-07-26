@@ -10,6 +10,8 @@ environments:
 ---
 releases:
   - name: nginxdemo
-    chart: ./charts/nginxdemo
     namespace: "{{ .Values.namespace }}"
+    chart:
+      name: nginxdemo
+      path: ./charts/nginxdemo
     createNamespace: true
