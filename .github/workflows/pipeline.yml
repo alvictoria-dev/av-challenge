@@ -38,19 +38,15 @@ jobs:
     - name: Import GPG key
       run: |
         echo "$GPG_PRIVATE_KEY" | gpg --batch --import
-        export GPG_TTY=$(tty)
-        gpg --list-keys
       env:
         GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 
     - name: Deploy to Dev
       run: |
         export HELM_SECRETS_BACKEND="sops"
-        export GPG_TTY=$(tty)
-        helmfile -e dev apply
+        helmfile -e dev secrets apply
 
     - name: Deploy to Stage
       run: |
         export HELM_SECRETS_BACKEND="sops"
-        export GPG_TTY=$(tty)
-        helmfile -e stage apply
+        helmfile -e stage secrets apply
