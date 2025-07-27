@@ -38,9 +38,9 @@ jobs:
     - name: Deploy to Dev
       run: |
         export HELM_SECRETS_BACKEND="sops"
-        helmfile -e dev apply --args "--force"
+        helmfile -e dev apply
 
     - name: Deploy to Stage
       run: |
         export HELM_SECRETS_BACKEND="sops"
-        helmfile -e stage apply --args "--force"
+        helmfile -e stage apply
