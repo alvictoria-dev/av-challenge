@@ -34,6 +34,7 @@ jobs:
         sudo mv sops /usr/local/bin/
         helm plugin install https://github.com/jkroepke/helm-secrets
         helm plugin install https://github.com/databus23/helm-diff
+        helm plugin list
 
     - name: Import GPG key
       run: |
@@ -44,9 +45,9 @@ jobs:
     - name: Deploy to Dev
       run: |
         export HELM_SECRETS_BACKEND="sops"
-        helmfile -e dev secrets apply
+        helmfile -e dev apply
 
     - name: Deploy to Stage
       run: |
         export HELM_SECRETS_BACKEND="sops"
-        helmfile -e stage secrets apply
+        helmfile -e stage apply
