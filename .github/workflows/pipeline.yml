@@ -35,6 +35,12 @@ jobs:
         helm plugin install https://github.com/jkroepke/helm-secrets
         helm plugin install https://github.com/databus23/helm-diff
 
+    - name: Import GPG key
+      run: |
+        echo "$GPG_PRIVATE_KEY" | gpg --import
+      env:
+        GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
     - name: Deploy to Dev
       run: |
         export HELM_SECRETS_BACKEND="sops"
